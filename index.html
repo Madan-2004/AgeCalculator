@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>AgeCalculator</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Javascript Age <span>Calculator</span></h1>
+        <div class="form">
+            <input type="date" placeholder="Select your DOB" id="dob">
+            <button id="submit">Submit</button>
+        </div>
+        <span id="msg"></span>
+    </div>
+
+    <script>
+        var now = new Date();
+        var d2 = now.getDate();
+        var m2 = now.getMonth()+1;
+        var y2 = now.getFullYear();
+        var months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        document.getElementById("submit").addEventListener("click", function(){
+            var date = new Date(document.getElementById("dob").value);
+            if(document.getElementById("dob").value == ''){
+                alert('Please select a valid date');
+            }
+            else{
+                var d1 = date.getDate();
+                var m1 = date.getMonth()+1;
+                var y1 = date.getFullYear();
+                if(d1>d2){
+                    d2 = d2 + months[m2-1];
+                    m2 = m2-1;
+                }
+                if(m1>m2){
+                    m2 = m2 + 12;
+                    y2 = y2-1;
+                }
+                var days = d2-d1;
+                var months = m2-m1;
+                var years = y2-y1;
+                if(months>=12){
+                    years++;
+                    months = months-12;
+                }
+                document.getElementById("msg").innerHTML=`You are ${years} years, ${months} months, ${days} days Old!`;
+            }
+        }) 
+    </script>
+</body>
+</html>
